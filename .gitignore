@@ -1,0 +1,6 @@
+/.idea/
+/backend-powergraph/.idea/
+/frontend-powergraph/.idea/
+/backend-powergraph/target/
+/frontend-powergraph/.vscode/
+/frontend-powergraph/node_modules/

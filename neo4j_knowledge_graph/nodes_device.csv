@@ -1,0 +1,11 @@
+﻿id,name,type,model,status,installDate,manufacturer,stationId
+D001,主变1,Transformer,T-500,NORMAL,2018-05-20,国电设备,S001
+D002,主变2,Transformer,T-500,WARN,2018-06-11,国电设备,S001
+D003,断路器A,Breaker,BR-200,NORMAL,2019-02-15,南能电气,S002
+D004,隔离开关1,Disconnector,DS-30,NORMAL,2018-10-10,南能电气,S002
+D005,CT测量装置A,Sensor,CT-300,FAULT,2020-05-02,仪表科技,S003
+D006,PT电压监测单元B,Sensor,PT-150,NORMAL,2019-07-22,仪表科技,S003
+D007,接地开关X,Switch,GS-10,WARN,2021-01-05,电控设备,S004
+D008,主控柜MCC-A,ControlCabinet,MCC-500,NORMAL,2017-12-20,电控设备,S005
+D009,通讯终端RTU,RTU,RTU-X3,NORMAL,2018-04-16,云控通信,S005
+D010,母线连接器C,Connector,BC-10,NORMAL,2019-09-01,云控通信,S002

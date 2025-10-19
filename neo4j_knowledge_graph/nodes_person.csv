@@ -1,0 +1,6 @@
+﻿id,name,role,phone,email
+P001,张伟,ADMIN,13800010001,zhangwei@powergrid.cn
+P002,李敏,INSPECTOR,13800010002,limin@powergrid.cn
+P003,王刚,INSPECTOR,13800010003,wanggang@powergrid.cn
+P004,赵云,VIEWER,13800010004,zhaoyun@powergrid.cn
+P005,陈涛,INSPECTOR,13800010005,chentao@powergrid.cn

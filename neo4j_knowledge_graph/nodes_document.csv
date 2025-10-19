@@ -1,0 +1,6 @@
+﻿id,title,version,url,tags
+DOC001,变电站设备巡检规范,1.2,/docs/specs/inspect_v1.2.pdf,"[""巡检"",""安全""]"
+DOC002,主变维护手册,2.0,/docs/manuals/transformer_v2.pdf,"[""设备"",""维护""]"
+DOC003,高压开关操作规程,3.1,/docs/manuals/switch_op_v3.1.pdf,"[""操作"",""安全""]"
+DOC004,巡检报告模板,1.0,/docs/templates/report_template.pdf,"[""模板"",""报告""]"
+DOC005,接地装置检测流程,1.1,/docs/specs/ground_check_v1.1.pdf,"[""检测"",""规程""]"
