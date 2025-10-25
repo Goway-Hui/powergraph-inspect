@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class Task {
     
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
@@ -29,6 +28,18 @@ public class Task {
     
     @Column(name = "assignee_id")
     private Long assigneeId;
+
+    @Column(name = "department_id")
+    private Long departmentId;
+
+    @Column(name = "creator_id")
+    private Long creatorId;
+
+    @Column(name = "station_id")
+    private Long stationId;
+
+    @Column(columnDefinition = "TEXT")
+    private String tags;
     
     private String status; // PENDING, IN_PROGRESS, COMPLETED
     

@@ -85,9 +85,9 @@
               <icon-storage />
               <span>设备管理</span>
             </template>
-            <a-menu-item key="2-1">设备列表</a-menu-item>
-            <a-menu-item key="2-2">设备分类</a-menu-item>
-            <a-menu-item key="2-3">设备状态</a-menu-item>
+            <a-menu-item key="2-1" @click="() => router.push('/admin/devices')">设备列表</a-menu-item>
+            <a-menu-item key="2-2" @click="() => router.push('/admin/devices/categories')">设备分类</a-menu-item>
+            <a-menu-item key="2-3" @click="() => router.push('/admin/devices/status')">设备状态</a-menu-item>
           </a-sub-menu>
           
           <a-sub-menu key="3">
@@ -95,19 +95,20 @@
               <icon-check-circle />
               <span>任务管理</span>
             </template>
-            <a-menu-item key="3-1">任务列表</a-menu-item>
-            <a-menu-item key="3-2">任务分配</a-menu-item>
-            <a-menu-item key="3-3">任务统计</a-menu-item>
+            <a-menu-item key="3-1" @click="() => router.push('/admin/tasks')">任务列表</a-menu-item>
+            <a-menu-item key="3-2" @click="() => router.push('/admin/tasks/assign')">任务分配</a-menu-item>
+            <a-menu-item key="3-3" @click="() => router.push('/admin/tasks/stats')">任务统计</a-menu-item>
           </a-sub-menu>
           
+          <!-- 告警管理菜单绑定路由 -->
           <a-sub-menu key="4">
             <template #title>
               <icon-bulb />
               <span>告警管理</span>
             </template>
-            <a-menu-item key="4-1">告警列表</a-menu-item>
-            <a-menu-item key="4-2">告警规则</a-menu-item>
-            <a-menu-item key="4-3">告警统计</a-menu-item>
+             <a-menu-item key="4-1" @click="() => router.push('/admin/alerts')">告警列表</a-menu-item>
+             <a-menu-item key="4-2" @click="() => router.push('/admin/alerts/rules')">告警规则</a-menu-item>
+             <a-menu-item key="4-3" @click="() => router.push('/admin/alerts/stats')">告警统计</a-menu-item>
           </a-sub-menu>
           
           <a-sub-menu key="5">
@@ -115,9 +116,9 @@
               <icon-user />
               <span>用户管理</span>
             </template>
-            <a-menu-item key="5-1">用户列表</a-menu-item>
-            <a-menu-item key="5-2">角色权限</a-menu-item>
-            <a-menu-item key="5-3">部门管理</a-menu-item>
+            <a-menu-item key="5-1" @click="() => router.push('/admin/users')">用户列表</a-menu-item>
+            <a-menu-item key="5-2" @click="() => router.push('/admin/roles')">角色权限</a-menu-item>
+            <a-menu-item key="5-3" @click="() => router.push('/admin/departments')">部门管理</a-menu-item>
           </a-sub-menu>
           
           <a-sub-menu key="6">

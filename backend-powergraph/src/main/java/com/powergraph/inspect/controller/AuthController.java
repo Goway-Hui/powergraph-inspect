@@ -10,7 +10,7 @@ import java.util.Map;
 @RestController
 // --- 修改在这里 ---
 // 移除 /api 前缀，以匹配 Vite 代理重写后的路径
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired

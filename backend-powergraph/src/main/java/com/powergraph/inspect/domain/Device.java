@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -18,11 +19,18 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(unique = true)
+    private String code;
+
     @Column(nullable = false)
     private String name;
     
     @Column(nullable = false)
     private String type;
+    
+    private String model;
+    
+    private String manufacturer;
     
     private String status;
     
@@ -30,6 +38,21 @@ public class Device {
     
     @Column(name = "station_id")
     private Long stationId;
+
+    @Column(name = "department_id")
+    private Long departmentId;
+
+    @Column(name = "install_date")
+    private LocalDate installDate;
+
+    @Column(name = "last_inspection_at")
+    private LocalDateTime lastInspectionAt;
+
+    @Column(name = "maintenance_cycle_days")
+    private Integer maintenanceCycleDays;
+
+    // 存储为 JSON 字符串（可选）
+    private String tags;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;

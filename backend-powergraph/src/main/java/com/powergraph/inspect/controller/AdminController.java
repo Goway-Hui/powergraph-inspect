@@ -30,7 +30,16 @@ public class AdminController {
     }
     
     @GetMapping("/users")
-    public ApiResponse<List<User>> getAllUsers() {
+    public ApiResponse<List<User>> getUsers(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime start,
+            @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME) java.time.LocalDateTime end
+    ) {
+        if (keyword != null || role != null || status != null || start != null || end != null) {
+            return userService.searchUsers(keyword, role, status, start, end);
+        }
         return userService.getAllUsers();
     }
     
@@ -47,5 +56,24 @@ public class AdminController {
     @DeleteMapping("/users/{id}")
     public ApiResponse<Void> deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
+    }
+
+    public static class BatchStatusRequest {
+        public java.util.List<Long> ids;
+        public String status;
+    }
+
+    @PostMapping("/users/batch/status")
+    public ApiResponse<Void> updateUsersStatus(@RequestBody BatchStatusRequest req) {
+        return userService.updateUsersStatus(req.ids, req.status);
+    }
+
+    public static class BatchDeleteRequest {
+        public java.util.List<Long> ids;
+    }
+
+    @PostMapping("/users/batch/delete")
+    public ApiResponse<Void> deleteUsersBatch(@RequestBody BatchDeleteRequest req) {
+        return userService.deleteUsersBatch(req.ids);
     }
 }

@@ -64,6 +64,20 @@ INSERT INTO alerts (device_id, level, content, status, assigned_to, created_at, 
 (6, 'MEDIUM', '避雷器#001接地电阻略有增大', 'PROCESSING', 3, DATE_ADD(NOW(), INTERVAL -1 HOUR), DATE_ADD(NOW(), INTERVAL -30 MINUTE)),
 (12, 'HIGH', '主变压器#201正在进行维护，暂停操作', 'RESOLVED', 4, DATE_ADD(NOW(), INTERVAL -2 DAY), NOW());
 
+-- 角色初始数据
+INSERT INTO roles (name, code, description, status, permissions, created_at, updated_at) VALUES
+('系统管理员','ADMIN','系统最高权限','启用','["device:view","device:edit","task:view","task:assign","alert:view","alert:handle","alert:rule","graph:view","graph:analysis","user:view","user:edit"]', NOW(), NOW()),
+('巡检员','INSPECTOR','执行巡检任务','启用','["device:view","task:view","alert:view"]', NOW(), NOW()),
+('观察员','VIEWER','只读查看','禁用','["device:view","task:view","alert:view","graph:view"]', NOW(), NOW());
+
+-- 部门初始数据
+INSERT INTO departments (name, parent_id, leader, status, description, created_at, updated_at) VALUES
+('总部', NULL, NULL, '启用', '公司总部', NOW(), NOW()),
+('研发中心', 1, '张三', '启用', NULL, NOW(), NOW()),
+('后端组', 2, '李四', '启用', NULL, NOW(), NOW()),
+('前端组', 2, '王五', '禁用', NULL, NOW(), NOW()),
+('运维中心', 1, '赵六', '启用', NULL, NOW(), NOW());
+
 -- 查询验证数据
 SELECT 'Users Count' as Table_Name, COUNT(*) as Count FROM users
 UNION ALL
@@ -73,4 +87,8 @@ SELECT 'Devices Count' as Table_Name, COUNT(*) as Count FROM devices
 UNION ALL
 SELECT 'Tasks Count' as Table_Name, COUNT(*) as Count FROM tasks
 UNION ALL
-SELECT 'Alerts Count' as Table_Name, COUNT(*) as Count FROM alerts;
+SELECT 'Alerts Count' as Table_Name, COUNT(*) as Count FROM alerts
+UNION ALL
+SELECT 'Roles Count' as Table_Name, COUNT(*) as Count FROM roles
+UNION ALL
+SELECT 'Departments Count' as Table_Name, COUNT(*) as Count FROM departments;

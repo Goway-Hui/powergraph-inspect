@@ -79,23 +79,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 4. 配置URL的授权规则
                 .authorizeRequests()
-                // 允许对登录接口(/auth/**)的匿名访问。
-                // 注意：这里的路径是Vite代理转发后的路径，不包含 /api 前缀。
+                // 允许对登录接口的匿名访问（兼容 /auth/** 和 /api/auth/** 两种前缀）
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
 
-                // 其他所有接口，例如 /graph/**, /admin/** 等都需要认证后才能访问
+                // 其他接口的角色和认证要求（同时兼容是否带 /api 前缀）
                 .antMatchers("/graph/**").authenticated()
+                .antMatchers("/api/graph/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/inspector/**").hasRole("INSPECTOR")
+                .antMatchers("/api/inspector/**").hasRole("INSPECTOR")
                 .antMatchers("/viewer/**").hasRole("VIEWER")
+                .antMatchers("/api/viewer/**").hasRole("VIEWER")
 
-                // 除了上面明确放行的，其他所有请求都需要认证
+                // 除了上面明确放行/授权的，其他所有请求都需要认证
                 .anyRequest().authenticated();
 
-        // 5. 【最关键的一步】
-        //    将我们自定义的JWT过滤器添加到Spring Security的过滤器链中。
-        //    它必须在 UsernamePasswordAuthenticationFilter 之前执行，
-        //    这样才能在Spring处理用户名密码认证之前，通过Token完成用户身份的验证。
+        // 5. 自定义JWT过滤器放在 UsernamePasswordAuthenticationFilter 之前
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

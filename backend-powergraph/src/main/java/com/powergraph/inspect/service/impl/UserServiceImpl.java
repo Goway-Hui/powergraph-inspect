@@ -66,12 +66,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ApiResponse<List<User>> searchUsers(String keyword, String role, String status, java.time.LocalDateTime start, java.time.LocalDateTime end) {
+        List<User> all = userRepository.findAll();
+        List<User> filtered = all.stream().filter(u -> {
+            boolean matchKeyword = (keyword == null || keyword.isEmpty()) ||
+                    (u.getName() != null && u.getName().contains(keyword)) ||
+                    (u.getUsername() != null && u.getUsername().contains(keyword));
+            boolean matchRole = (role == null || role.isEmpty()) || role.equalsIgnoreCase(u.getRole());
+            boolean matchStatus = (status == null || status.isEmpty()) || status.equalsIgnoreCase(u.getStatus());
+            boolean matchDate = true;
+            if (start != null) {
+                matchDate = u.getCreatedAt() != null && !u.getCreatedAt().isBefore(start);
+            }
+            if (matchDate && end != null) {
+                matchDate = u.getCreatedAt() != null && !u.getCreatedAt().isAfter(end);
+            }
+            return matchKeyword && matchRole && matchStatus && matchDate;
+        }).collect(java.util.stream.Collectors.toList());
+        return ApiResponse.success(filtered);
+    }
+
+    @Override
     public ApiResponse<User> updateUser(Long id, User user) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             User updatedUser = existingUser.get();
             updatedUser.setName(user.getName());
             updatedUser.setRole(user.getRole());
+            updatedUser.setStatus(user.getStatus() != null ? user.getStatus() : updatedUser.getStatus());
             updatedUser.setAvatar(user.getAvatar());
             userRepository.save(updatedUser);
             return ApiResponse.success("用户更新成功", updatedUser);
@@ -90,5 +112,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public ApiResponse<Void> updateUsersStatus(java.util.List<Long> ids, String status) {
+        if (ids == null || ids.isEmpty()) {
+            return ApiResponse.error("未提供用户ID");
+        }
+        List<User> users = userRepository.findAllById(ids);
+        users.forEach(u -> u.setStatus(status));
+        userRepository.saveAll(users);
+        return ApiResponse.success("批量更新状态成功", null);
+    }
+
+    @Override
+    public ApiResponse<Void> deleteUsersBatch(java.util.List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return ApiResponse.error("未提供用户ID");
+        }
+        userRepository.deleteAllById(ids);
+        return ApiResponse.success("批量删除成功", null);
+    }
 
 }

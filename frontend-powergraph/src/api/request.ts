@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // 创建 axios 实例
 const request = axios.create({
-  baseURL: '/api', // 后端 API 基础路径
-  timeout: 10000, // 请求超时时间
+  baseURL: '/api', // 默认后端 API 基础路径
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -12,13 +12,17 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(
   (config: any) => {
-    // 在发送请求之前做些什么
-    // 如果是登录请求，则不添加 token
+    // 如果是 /graph 路径，则修改 baseURL
+    if (config.url && config.url.startsWith('/graph')) {
+      config.baseURL = '/'; // 使用根路径
+    }
+    
+    // 登录请求不加 token
     if (config.url === '/auth/login') {
       return config;
     }
     
-    // 对其他请求，添加 token
+    // 其他请求统一添加 token
     const token = localStorage.getItem('token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
